@@ -1,0 +1,49 @@
+DATABASES PART 2
+
+Find out which countries the directors in her collection are from (and make sure your result set only lists each country only once).
+SELECT country FROM directors GROUP BY country;
+
+Who are the French directors in her database?
+SELECT * FROM directors WHERE country="France";
+
+What is the date of the first time someone viewed one of Sarah's movies?
+SELECT MIN(date_viewed) FROM viewings;
+
+How many movies in her collection were directed by people born in the USA?
+SELECT COUNT(movies.movie_id) FROM movies
+	JOIN directors
+    ON movies.director_id = directors.director_id
+    WHERE directors.country = "USA";
+
+What are the titles of the movies in her collection that were directed by Akira Kurosawa?
+SELECT * FROM movies
+	JOIN directors
+    ON movies.director_id = directors.director_id
+    WHERE directors.last = "Kurosawa" AND directors.first = "Akira";
+
+How many times has the movie "Talk to Me" been viewed?
+SELECT COUNT(*) FROM movies
+	JOIN viewings
+    ON movies.movie_id = viewings.movie_id
+    WHERE movies.title = "Talk to Me";
+
+When was the last time someone viewed one of her movies?
+SELECT MAX(date_viewed) FROM viewings;
+
+What is the id of the last-viewed movie?
+SELECT movie_id
+	FROM viewings
+    WHERE date_viewed = (SELECT MAX(date_viewed) FROM viewings);
+
+What is the title of the first movie she loaned to a friend for viewing?
+SELECT movies.title FROM movies
+	JOIN viewings
+    ON movies.movie_id = viewings.movie_id
+    WHERE viewings.date_viewed = (SELECT MIN(date_viewed) FROM viewings)
+
+
+What is the first and last name of the person who viewed the last-viewed movie?
+SELECT viewers.first, viewers.last FROM viewers
+	JOIN viewings
+    ON viewers.viewer_id = viewings.viewer_id
+    WHERE viewings.date_viewed = (SELECT MAX(date_viewed) FROM viewings);

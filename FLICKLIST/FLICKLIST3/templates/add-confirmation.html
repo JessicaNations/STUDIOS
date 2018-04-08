@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FlickList</title>
+  </head>
+  <body>
+    <h1>FlickList</h1>
+  <form action="/add" method="post">
+    <label>
+      I want to add
+      <input type="text" name="new-movie"/>
+      to my watchlist.
+    </label>
+    <input type="submit" value="Add It"/>
+    </form>
+    
+    <form action="/crossoff" method="post">
+      <label>
+        I want to cross off
+        <select name="crossed-off-movie"/>
+        {0}
+        </select>
+      from my watchlist.
+      </label>
+    <input type="submit" value="Cross It Off"/>
+    </form>
+  </body>
+</html>

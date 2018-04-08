@@ -1,0 +1,77 @@
+movies
+    *movie_id - primary key integer auto increment
+    *title - varchar(100) NOT NULL
+    *year - datetime 
+    runtime
+    rating
+    genre
+    country
+    *director - foreign key integer
+Directors
+    *director_id - primary key integer auto increment
+    *first - varchar(100)
+    *last - varchar(100)
+    *country - varchar(100)
+    birthdate
+    awards
+
+CREATE TABLE Directors
+    (director_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    country VARCHAR(100)
+    );
+
+CREATE TABLE Movies
+    (movie_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    year INTEGER,
+    director_id INTEGER, 
+    FOREIGN KEY (director_id) REFERENCES Directors(director_id)
+    );
+
+
+List all the titles of the movies in the database.
+SELECT title, 
+FROM Movies;
+
+List all the titles of the movies in the database in descending order of the year they were released.
+SELECT title,
+FROM Movies,
+ORDER BY year DESC;
+
+Insert a new record into the directors table for Jean-Pierre Jeunet whose country of origin is France. (Note: Assume the column for director_id is auto incremented, so you don't need to put in a value for that column.)
+INSERT INTO Directors (first_name, last_name, country),
+VALUES ('Jean-Pierre', 'Jeunet', 'France');
+
+List the director_id for Jean-Pierre Jeunet.
+SELECT director_id,
+FROM Directors,
+WHERE last_name='Jeunet';
+
+Insert a new record into the movies table for Amelie
+which was released in 2001 and directed by Jean-Pierre Jeunet. 
+(Hint: Assume the id you got from the last query was "2" and use that. 
+And, like question 3, assume the movie_id column is auto incremented).
+INSERT INTO Movies (title, year, director_id),
+VALUES ('Amelie', 2001, 3);
+
+List all columns for all records of the directors table in 
+ascending alphabetical order of the director's country of origin.
+SELECT * FROM Directors,
+ORDER BY country;
+
+List the country of origin of the director of Amelie. 
+(You could do this using either a join or a subquery. Use a join.)
+JOIN Movies,
+ON Movies.director_id=directors.director_id,
+WHERE title='Amelie';
+
+List all the movies in the database along with each movie's 
+director, ordered by the director's last name in ascending order. 
+(Hint: you'll want to use a join and choose the columns title, first, and last).
+SELECT Movies.title, directors.first_name, directors.last_name, 
+FROM Movies,
+JOIN Directors,
+ON Movies.directo_id=directors.director_id
+ORDER BY directors.last_name;

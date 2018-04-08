@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Movies I Have Watched</h2>
+
+<ul>
+  
+      	{% for movie in watched_movies %}	
+        <li>		
+                <h3>{{movie}}</h3>	
+                <form action="/rating-confirmation" method="post">	
+                        My Rating:	
+                        <input type="hidden" name="rated-movie" value="{{ movie }}"/>		
+                        <select name="movie-rating">		
+                                <option value="How was it?">How was it?</option>			
+                                <option value="*****">*****</option>			
+                                <option value="****">****</option>			
+                                <option value="***">***</option>			
+                                <option value="**">**</option>		
+                                <option value="*">*</option>		
+                        </select>		
+                        <input type="submit" value="Rate it!"/>	
+                </form>
+        </li>
+        {% endfor %}
+
+</ul>
+
+
+{% endblock %}
